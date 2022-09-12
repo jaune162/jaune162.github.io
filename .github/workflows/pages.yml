@@ -37,6 +37,9 @@ jobs:
           wget -O ${{runner.temp}}/golang.tar.gz https://go.dev/dl/go1.19.1.linux-amd64.tar.gz \
           && mkdir ${{runner.temp}}/golang && tar -C ${{runner.temp}}/golang -xzf ${{runner.temp}}/golang.tar.gz \
           && export PATH=$PATH:${{runner.temp}}/golang/go/bin
+      - name: Show go version
+        run: |
+          go version
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb \
@@ -54,7 +57,8 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
-          hugo \
+          export PATH=$PATH:${{runner.temp}}/golang/go/bin \
+          && hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
