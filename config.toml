@@ -1,4 +1,4 @@
 baseURL = 'http://jaune162.com'
 languageCode = 'en-us'
 title = '道与术'
-theme = 'geekblog'
+theme = 'hugo-theme-flat'
